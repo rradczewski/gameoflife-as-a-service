@@ -1,0 +1,15 @@
+{
+  "name": "broker",
+  "version": "1.0.0",
+  "description": "Broker for GameOfLife-as-a-Service",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Raimo Radczewski <raimoradczewski@googlemail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "1.15.2",
+    "express": "4.14.0"
+  }
+}
