@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Game of Life</title>
+</head>
+<body>
+  <h1>Game Of Life</h1>
+  <pre id="board"></pre>
+  <script type="application/javascript">
+
+    const main = () => {
+      const boardElem = document.getElementById('board');
+
+      if(window.location.hash.length <= 1) {
+        boardElem.innerText = 'You need to specify the Server URL as #anchor';
+        return;
+      }
+
+      const doLoop = () => {
+        fetchBoard(window.location.hash.substr(1))
+          .then(board => {
+            drawBoard(board, boardElem);
+          })
+          .then(() => {
+            window.setTimeout(doLoop, 100);
+          });
+      }
+
+      doLoop();
+
+    }
+    
+    const drawBoard = (board, element) => {
+      let boardString = '';
+      board.forEach(row => {
+        row.forEach(cell => {
+          boardString += cell ? 'X' : ' ';
+        });
+        boardString += "\n";
+      });
+      element.innerText = boardString;
+    }
+
+    const fetchBoard = (url) =>
+      fetch(url)
+        .then(response => response.status === 200 ? response : Promise.reject(new Error('Server responded with error '+response.status)))
+        .then(response => response.json());
+
+    window.addEventListener('load', main);
+  </script>
+</body>
+</html>
